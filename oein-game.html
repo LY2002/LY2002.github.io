@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oein 单机小游戏 - 湖北欧因网络科技有限公司</title>
+    <!-- 引入外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF', // 主色调：科技蓝
+                        secondary: '#FF7D00', // 辅助色：活力橙
+                        dark: '#1E293B', // 深色背景
+                        light: '#F8FAFC', // 浅色背景
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .game-card-hover {
+                @apply transition-all duration-300 hover:scale-105 hover:shadow-xl;
+            }
+            .btn-primary {
+                @apply bg-primary text-white px-6 py-2 rounded-lg font-medium transition-all hover:bg-primary/90 hover:shadow-lg;
+            }
+            .btn-secondary {
+                @apply bg-secondary text-white px-6 py-2 rounded-lg font-medium transition-all hover:bg-secondary/90 hover:shadow-lg;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-dark">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- 品牌LOGO -->
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">oe</span>
+                </div>
+                <span class="text-xl font-bold text-dark">oein 游戏</span>
+            </a>
+            
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#home" class="font-medium hover:text-primary transition-colors">首页</a>
+                <a href="#games" class="font-medium hover:text-primary transition-colors">游戏库</a>
+                <a href="#features" class="font-medium hover:text-primary transition-colors">特色介绍</a>
+                <a href="#about" class="font-medium hover:text-primary transition-colors">关于我们</a>
+                <a href="#contact" class="font-medium hover:text-primary transition-colors">联系我们</a>
+            </nav>
+            
+            <!-- 下载按钮 -->
+            <a href="#download" class="btn-primary hidden md:block">
+                <i class="fa fa-download mr-2"></i>下载中心
+            </a>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-dark text-2xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
+                <a href="#home" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">首页</a>
+                <a href="#games" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">游戏库</a>
+                <a href="#features" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">特色介绍</a>
+                <a href="#about" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">关于我们</a>
+                <a href="#contact" class="py-2 border-b border-gray-100 hover:text-primary transition-colors">联系我们</a>
+                <a href="#download" class="btn-primary text-center">
+                    <i class="fa fa-download mr-2"></i>下载中心
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section id="home" class="bg-gradient-to-br from-primary/90 to-primary py-20 md:py-32 text-white">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
+            <div class="md:w-1/2">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight mb-4">
+                    oein 单机小游戏<br>
+                    <span class="text-secondary">随时随地畅玩</span>
+                </h1>
+                <p class="text-lg text-white/90 mb-8 max-w-lg">
+                    湖北欧因网络科技有限公司倾力打造，无需网络，没有广告，纯粹的游戏体验，让你在任何时间、任何地点都能享受游戏的乐趣。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#games" class="btn-secondary">
+                        <i class="fa fa-gamepad mr-2"></i>探索游戏
+                    </a>
+                    <a href="#download" class="bg-white text-primary px-6 py-2 rounded-lg font-medium transition-all hover:bg-gray-100 hover:shadow-lg">
+                        <i class="fa fa-download mr-2"></i>立即下载
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative">
+                <img src="https://picsum.photos/800/600?random=1" alt="oein游戏展示" class="rounded-xl shadow-2xl w-full h-auto">
+                <div class="absolute -bottom-5 -left-5 bg-secondary text-white px-4 py-2 rounded-lg font-bold shadow-lg">
+                    超过50款精品小游戏
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏库 -->
+    <section id="games" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">oein 游戏库</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">精选各类单机小游戏，涵盖休闲、益智、冒险、解谜等多种类型，总有一款适合你</p>
+            </div>
+            
+            <!-- 游戏分类标签 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="px-4 py-2 rounded-full bg-primary text-white font-medium">全部游戏</button>
+                <button class="px-4 py-2 rounded-full bg-white text-dark hover:bg-gray-100 transition-colors">休闲益智</button>
+                <button class="px-4 py-2 rounded-full bg-white text-dark hover:bg-gray-100 transition-colors">冒险解谜</button>
+                <button class="px-4 py-2 rounded-full bg-white text-dark hover:bg-gray-100 transition-colors">动作闯关</button>
+                <button class="px-4 py-2 rounded-full bg-white text-dark hover:bg-gray-100 transition-colors">模拟经营</button>
+            </div>
+            
+            <!-- 游戏卡片网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 游戏卡片1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md game-card-hover">
+                    <img src="https://picsum.photos/400/250?random=2" alt="方块消消乐" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-lg">方块消消乐</h3>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">休闲</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">经典的消除类游戏，简单易上手，打发时间的绝佳选择</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-500">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <span class="text-gray-600 ml-1">4.5</span>
+                            </span>
+                            <a href="#" class="text-primary font-medium hover:underline">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏卡片2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md game-card-hover">
+                    <img src="https://picsum.photos/400/250?random=3" alt="迷宫探险" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-lg">迷宫探险</h3>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">解谜</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">挑战各种复杂迷宫，锻炼空间思维能力，越玩越聪明</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-500">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span class="text-gray-600 ml-1">4.0</span>
+                            </span>
+                            <a href="#" class="text-primary font-medium hover:underline">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏卡片3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md game-card-hover">
+                    <img src="https://picsum.photos/400/250?random=4" alt="像素冒险" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-lg">像素冒险</h3>
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">冒险</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">复古像素风格的冒险游戏，探索神秘世界，击败各种怪物</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-500">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span class="text-gray-600 ml-1">5.0</span>
+                            </span>
+                            <a href="#" class="text-primary font-medium hover:underline">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏卡片4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md game-card-hover">
+                    <img src="https://picsum.photos/400/250?random=5" alt="农场物语" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-bold text-lg">农场物语</h3>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm">经营</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">打造属于自己的农场，种植作物，养殖动物，体验田园生活</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-500">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span class="text-gray-600 ml-1">3.5</span>
+                            </span>
+                            <a href="#" class="text-primary font-medium hover:underline">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 加载更多按钮 -->
+            <div class="text-center mt-12">
+                <button class="border border-primary text-primary bg-white px-8 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
+                    加载更多游戏
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色介绍 -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">为什么选择 oein 游戏</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们致力于打造最好的单机游戏体验，让每一位玩家都能享受纯粹的游戏乐趣</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 特色1 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-wifi text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">无需网络</h3>
+                    <p class="text-gray-600">完全离线运行，没有网络也能畅玩，地铁、飞机、户外都能玩</p>
+                </div>
+                
+                <!-- 特色2 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-ban text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">无广告打扰</h3>
+                    <p class="text-gray-600">纯净游戏体验，没有任何广告弹窗，让你专注享受游戏乐趣</p>
+                </div>
+                
+                <!-- 特色3 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-tachometer text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">轻量流畅</h3>
+                    <p class="text-gray-600">体积小巧，运行流畅，低配设备也能完美运行，不占存储空间</p>
+                </div>
+                
+                <!-- 特色4 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">安全可靠</h3>
+                    <p class="text-gray-600">湖北欧因网络科技有限公司官方出品，安全无毒，放心下载</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载中心 -->
+    <section id="download" class="py-20 bg-gradient-to-tr from-dark to-primary/90 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">立即下载 oein 游戏中心</h2>
+                <p class="text-white/80 max-w-2xl mx-auto">一键获取所有oein单机小游戏，自动更新，管理方便</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Windows下载 -->
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center hover:bg-white/20 transition-colors">
+                    <i class="fa fa-windows text-5xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-3">Windows 版</h3>
+                    <p class="text-white/80 mb-6">支持 Windows 7/8/10/11</p>
+                    <a href="#" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                        <i class="fa fa-download mr-2"></i>下载安装包
+                    </a>
+                </div>
+                
+                <!-- Mac下载 -->
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center hover:bg-white/20 transition-colors">
+                    <i class="fa fa-apple text-5xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-3">macOS 版</h3>
+                    <p class="text-white/80 mb-6">支持 macOS 10.14 及以上版本</p>
+                    <a href="#" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                        <i class="fa fa-download mr-2"></i>下载安装包
+                    </a>
+                </div>
+                
+                <!-- 移动端下载 -->
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center hover:bg-white/20 transition-colors">
+                    <i class="fa fa-mobile text-5xl mb-6" style="font-size: 4rem;"></i>
+                    <h3 class="font-bold text-xl mb-3">移动端</h3>
+                    <p class="text-white/80 mb-6">支持 iOS 和 Android</p>
+                    <a href="#" class="inline-block bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                        <i class="fa fa-qrcode mr-2"></i>扫码下载
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-1/2">
+                    <img src="https://picsum.photos/800/600?random=6" alt="湖北欧因网络科技有限公司" class="rounded-xl shadow-lg w-full h-auto">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-6">关于湖北欧因网络科技有限公司</h2>
+                    <p class="text-gray-600 mb-4">
+                        湖北欧因网络科技有限公司（oein）是一家专注于单机小游戏研发与运营的科技企业，致力于为广大玩家提供高品质、轻量级的单机游戏体验。
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        我们的团队由一群热爱游戏的设计师、程序员和产品经理组成，秉承"简单、快乐、纯粹"的游戏理念，打造无需网络、无广告、轻量流畅的单机小游戏产品。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div>
+                            <h4 class="font-bold mb-2"><i class="fa fa-check-circle text-primary mr-2"></i>成立时间</h4>
+                            <p class="text-gray-600">2020年</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2"><i class="fa fa-check-circle text-primary mr-2"></i>总部地址</h4>
+                            <p class="text-gray-600">湖北省枣阳市新市镇谢鹏村三组</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2"><i class="fa fa-check-circle text-primary mr-2"></i>员工规模</h4>
+                            <p class="text-gray-600">50+ 专业人才</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2"><i class="fa fa-check-circle text-primary mr-2"></i>游戏数量</h4>
+                            <p class="text-gray-600">50+ 款精品游戏</p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn-primary">
+                        <i class="fa fa-envelope mr-2"></i>联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">联系我们</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">如果您有任何问题、建议或合作意向，欢迎随时联系我们</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- 联系信息 -->
+                <div>
+                    <div class="mb-8">
+                        <h3 class="font-bold text-xl mb-4">联系方式</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-map-marker text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">公司地址</h4>
+                                    <p class="text-gray-600">湖北省枣阳市新市镇谢鹏村三组</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">联系电话</h4>
+                                    <p class="text-gray-600">027-88888888</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">电子邮箱</h4>
+                                    <p class="text-gray-600">contact@oein.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold text-xl mb-4">关注我们</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-weixin"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-weibo"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-qq"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 联系表单 -->
+                <div class="bg-gray-50 rounded-xl p-8">
+                    <h3 class="font-bold text-xl mb-6">发送消息</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 mb-2">姓名</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="请输入您的姓名">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 mb-2">邮箱</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="请输入您的邮箱">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 mb-2">主题</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                                <option value="">请选择联系主题</option>
+                                <option value="feedback">游戏反馈</option>
+                                <option value="cooperation">商务合作</option>
+                                <option value="job">招聘咨询</option>
+                                <option value="other">其他问题</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 mb-2">留言内容</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="请输入您的留言内容"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full">
+                            <i class="fa fa-paper-plane mr-2"></i>发送消息
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- 品牌信息 -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">oe</span>
+                        </div>
+                        <span class="text-xl font-bold text-white">oein 游戏</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">湖北欧因网络科技有限公司出品，专注于单机小游戏的研发与运营</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#games" class="text-gray-400 hover:text-white transition-colors">游戏库</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">特色介绍</a></li>
+                        <li><a href="#download" class="text-gray-400 hover:text-white transition-colors">下载中心</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 支持与帮助 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">支持与帮助</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系客服</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-gray-400">
+                            <i class="fa fa-map-marker"></i>
+                            <span>湖北省枣阳市新市镇谢鹏村三组</span>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-400">
+                            <i class="fa fa-phone"></i>
+                            <span>027-88888888</span>
+                        </li>
+                        <li class="flex items-center gap-2 text-gray-400">
+                            <i class="fa fa-envelope"></i>
+                            <span>contact@oein.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 mb-8">
+            
+            <!-- 版权信息 -->
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    © 2025 湖北欧因网络科技有限公司 版权所有 | 鄂ICP备12345678号-1
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-500 text-sm hover:text-white transition-colors">隐私政策</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-white transition-colors">用户协议</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-white transition-colors">免责声明</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 关闭移动端菜单
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 返回顶部按钮
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.add('shadow-sm');
+            }
+        });
+    </script>
+</body>
+</html>
