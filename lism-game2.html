@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISM - 官方网站 | 沉浸式单机游戏体验</title>
+    <meta name="description" content="LISM - 全新单机游戏力作，带来极致的游戏体验和沉浸式的游戏世界">
+    <!-- 引入Tailwind CSS用于快速样式开发 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标库 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // LISM品牌主色调 - 游戏风格的深蓝+荧光紫
+                        primary: '#1A1E3B',
+                        secondary: '#7B2CBF',
+                        accent: '#9D4EDD',
+                        dark: '#0F1123',
+                        light: '#F5F5F7'
+                    },
+                    fontFamily: {
+                        gaming: ['Inter', 'sans-serif']
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义样式 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 10px rgba(157, 78, 221, 0.8);
+            }
+            .bg-gradient-game {
+                background: linear-gradient(135deg, #1A1E3B 0%, #0F1123 100%);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+            .card-shadow {
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-light font-gaming overflow-x-hidden">
+    <!-- 导航栏 -->
+    <header class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <nav class="bg-primary/90 backdrop-blur-md py-4 px-6 md:px-12 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Logo -->
+                <a href="#" class="text-2xl md:text-3xl font-bold text-accent flex items-center">
+                    <span class="mr-2"><i class="fa fa-gamepad"></i></span>
+                    LISM
+                </a>
+            </div>
+            
+            <!-- 桌面端导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="hover:text-accent transition-colors">首页</a>
+                <a href="#features" class="hover:text-accent transition-colors">游戏特色</a>
+                <a href="#gallery" class="hover:text-accent transition-colors">游戏截图</a>
+                <a href="#download" class="hover:text-accent transition-colors">下载游戏</a>
+                <a href="#about" class="hover:text-accent transition-colors">关于我们</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-2xl" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </button>
+            
+            <!-- 下载按钮 -->
+            <a href="#download" class="hidden md:block bg-accent hover:bg-secondary text-white py-2 px-6 rounded-full transition-colors">
+                立即下载
+            </a>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden bg-primary/95 backdrop-blur-md absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300" id="mobileMenu">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#home" class="py-2 hover:text-accent transition-colors">首页</a>
+                <a href="#features" class="py-2 hover:text-accent transition-colors">游戏特色</a>
+                <a href="#gallery" class="py-2 hover:text-accent transition-colors">游戏截图</a>
+                <a href="#download" class="py-2 hover:text-accent transition-colors">下载游戏</a>
+                <a href="#about" class="py-2 hover:text-accent transition-colors">关于我们</a>
+                <a href="#download" class="bg-accent hover:bg-secondary text-white py-3 px-6 rounded-full text-center transition-colors">
+                    立即下载
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section id="home" class="min-h-screen flex items-center pt-20 px-6 md:px-12 bg-gradient-game relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-shadow">
+                    探索<span class="text-accent">LISM</span>的<br>游戏世界
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-lg">
+                    一款颠覆传统的单机游戏力作，沉浸式的游戏体验，丰富的剧情故事，精美的游戏画面，带你进入一个全新的游戏维度。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#download" class="bg-accent hover:bg-secondary text-white py-3 px-8 rounded-full text-lg transition-colors hover-scale">
+                        开始游戏 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#features" class="border border-accent text-accent hover:bg-accent/10 py-3 px-8 rounded-full text-lg transition-colors hover-scale">
+                        了解更多
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6 pt-4">
+                    <div class="flex items-center">
+                        <i class="fa fa-star text-yellow-400 text-xl"></i>
+                        <span class="ml-2 text-lg">9.8/10 评分</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-users text-green-400 text-xl"></i>
+                        <span class="ml-2 text-lg">100万+ 玩家</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <!-- 游戏封面图 -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/600?gaming" alt="LISM游戏封面" class="w-full h-auto">
+                </div>
+                <!-- 装饰元素 -->
+                <div class="absolute -top-4 -right-4 bg-accent text-white py-2 px-4 rounded-lg font-bold">
+                    2025 全新力作
+                </div>
+            </div>
+        </div>
+        
+        <!-- 滚动提示 -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#features" class="text-accent opacity-80 hover:opacity-100 transition-opacity">
+                <i class="fa fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 游戏特色 -->
+    <section id="features" class="py-20 px-6 md:px-12 bg-primary relative">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">游戏<span class="text-accent">特色</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">LISM 融合了创新的游戏玩法和精美的视觉效果，为你带来前所未有的单机游戏体验</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 特色1 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-paint-brush text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">极致画面</h3>
+                    <p class="text-gray-400">采用最新的游戏引擎打造，超高清画质，逼真的光影效果，每一个场景都如同身临其境。</p>
+                </div>
+                
+                <!-- 特色2 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-book text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">丰富剧情</h3>
+                    <p class="text-gray-400">数十小时的主线剧情，多个支线任务，丰富的人物设定，带你体验完整的游戏世界观。</p>
+                </div>
+                
+                <!-- 特色3 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-gamepad text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">创新玩法</h3>
+                    <p class="text-gray-400">融合了多种游戏玩法，自由度极高，你可以按照自己的方式探索游戏世界，完成任务目标。</p>
+                </div>
+                
+                <!-- 特色4 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-microchip text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">优化性能</h3>
+                    <p class="text-gray-400">针对不同配置的电脑进行深度优化，低配电脑也能流畅运行，不牺牲游戏体验。</p>
+                </div>
+                
+                <!-- 特色5 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-headphones text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">沉浸式音效</h3>
+                    <p class="text-gray-400">专业的音效设计，3D环绕立体声，配合游戏剧情和场景，带来极致的听觉体验。</p>
+                </div>
+                
+                <!-- 特色6 -->
+                <div class="bg-dark/50 rounded-xl p-8 hover-scale card-shadow border border-accent/20">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-shield text-2xl text-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">安全单机</h3>
+                    <p class="text-gray-400">纯单机游戏，无需联网，保护你的隐私安全，随时随地畅玩，不受网络限制。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏截图 -->
+    <section id="gallery" class="py-20 px-6 md:px-12 bg-dark relative">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">游戏<span class="text-accent">截图</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">欣赏 LISM 的精美游戏画面，感受沉浸式的游戏世界</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 截图1 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming1" alt="LISM游戏截图1" class="w-full h-auto">
+                </div>
+                
+                <!-- 截图2 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming2" alt="LISM游戏截图2" class="w-full h-auto">
+                </div>
+                
+                <!-- 截图3 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming3" alt="LISM游戏截图3" class="w-full h-auto">
+                </div>
+                
+                <!-- 截图4 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming4" alt="LISM游戏截图4" class="w-full h-auto">
+                </div>
+                
+                <!-- 截图5 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming5" alt="LISM游戏截图5" class="w-full h-auto">
+                </div>
+                
+                <!-- 截图6 -->
+                <div class="rounded-xl overflow-hidden hover-scale card-shadow">
+                    <img src="https://picsum.photos/800/450?gaming6" alt="LISM游戏截图6" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载区域 -->
+    <section id="download" class="py-20 px-6 md:px-12 bg-gradient-game relative">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">开始<span class="text-accent">游戏</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">下载 LISM 客户端，开启你的游戏冒险之旅</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-dark/70 backdrop-blur-sm rounded-2xl p-8 md:p-12 card-shadow border border-accent/20">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Windows版本 -->
+                    <div class="bg-primary/50 rounded-xl p-6 hover-scale border border-accent/10 hover:border-accent/30 transition-colors">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-windows text-4xl text-accent"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-center mb-2">Windows 版</h3>
+                        <p class="text-gray-400 text-center text-sm mb-4">支持 Windows 10/11</p>
+                        <a href="#" class="block text-center bg-accent hover:bg-secondary text-white py-2 rounded-lg transition-colors">
+                            下载 <span class="text-sm">(8.5GB)</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Mac版本 -->
+                    <div class="bg-primary/50 rounded-xl p-6 hover-scale border border-accent/10 hover:border-accent/30 transition-colors">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-apple text-4xl text-accent"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-center mb-2">macOS 版</h3>
+                        <p class="text-gray-400 text-center text-sm mb-4">支持 macOS 12+</p>
+                        <a href="#" class="block text-center bg-accent hover:bg-secondary text-white py-2 rounded-lg transition-colors">
+                            下载 <span class="text-sm">(8.2GB)</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Linux版本 -->
+                    <div class="bg-primary/50 rounded-xl p-6 hover-scale border border-accent/10 hover:border-accent/30 transition-colors">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-linux text-4xl text-accent"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-center mb-2">Linux 版</h3>
+                        <p class="text-gray-400 text-center text-sm mb-4">支持主流发行版</p>
+                        <a href="#" class="block text-center bg-accent hover:bg-secondary text-white py-2 rounded-lg transition-colors">
+                            下载 <span class="text-sm">(8.0GB)</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 系统要求 -->
+                <div class="bg-dark/50 rounded-xl p-6 mt-8">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <i class="fa fa-laptop text-accent mr-2"></i>
+                        最低系统要求
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-gray-300">
+                        <div>
+                            <p><span class="text-white">处理器：</span>Intel i5 / AMD Ryzen 5</p>
+                            <p><span class="text-white">内存：</span>8 GB RAM</p>
+                            <p><span class="text-white">显卡：</span>NVIDIA GTX 1050 / AMD RX 560</p>
+                        </div>
+                        <div>
+                            <p><span class="text-white">存储空间：</span>至少 10 GB</p>
+                            <p><span class="text-white">操作系统：</span>Windows 10 64位</p>
+                            <p><span class="text-white">DirectX：</span>Version 12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 px-6 md:px-12 bg-primary relative">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-4">关于<span class="text-accent">我们</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">LISM 开发团队致力于打造高品质的单机游戏体验</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">我们的故事</h3>
+                    <p class="text-gray-300 mb-4">
+                        LISM 由一群热爱游戏的开发者创立，我们坚信单机游戏能够带来最纯粹的游戏体验。团队成员均来自知名游戏公司，拥有丰富的游戏开发经验。
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        我们的使命是打造能够让玩家沉浸其中的游戏世界，注重游戏的剧情、玩法和画面的完美结合，让每一位玩家都能在游戏中找到乐趣和归属感。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-colors">
+                            <i class="fa fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://picsum.photos/800/500?team" alt="LISM开发团队" class="w-full h-auto">
+                </div>
+            </div>
+            
+            <!-- 联系我们 -->
+            <div class="mt-16 bg-dark/50 rounded-xl p-8 md:p-10 card-shadow border border-accent/20">
+                <h3 class="text-2xl font-bold mb-6 text-center">联系我们</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fa fa-envelope text-accent"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">邮箱</h4>
+                        <p class="text-gray-400">contact@lismgame.com</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fa fa-headphones text-accent"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">客服</h4>
+                        <p class="text-gray-400">支持@lismgame.com</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fa fa-map-marker text-accent"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">地址</h4>
+                        <p class="text-gray-400">广东省深圳市龙华新区观澜街道新田吉坑149号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark py-12 px-6 md:px-12 border-t border-accent/20">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <a href="#" class="text-2xl font-bold text-accent flex items-center mb-4">
+                        <span class="mr-2"><i class="fa fa-gamepad"></i></span>
+                        LISM
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        沉浸式单机游戏体验，探索无限可能的游戏世界。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-accent transition-colors">首页</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-accent transition-colors">游戏特色</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-accent transition-colors">游戏截图</a></li>
+                        <li><a href="#download" class="text-gray-400 hover:text-accent transition-colors">下载游戏</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">支持</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">常见问题</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">游戏指南</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">技术支持</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">反馈建议</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">法律信息</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">使用条款</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">退款政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">版权信息</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 深圳市我乐商贸有限公司. 保留所有权利。本游戏仅供个人娱乐使用，严禁商业用途。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-primary/95', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-primary/95', 'shadow-lg');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+        
+        // 移动端菜单
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+        
+        menuBtn.addEventListener('click', () => {
+            if (!menuOpen) {
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100');
+                menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+                menuOpen = true;
+            } else {
+                mobileMenu.classList.add('-translate-y-full', 'opacity-0');
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100');
+                menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+                menuOpen = false;
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 关闭移动端菜单
+                if (menuOpen) {
+                    mobileMenu.classList.add('-translate-y-full', 'opacity-0');
+                    mobileMenu.classList.remove('translate-y-0', 'opacity-100');
+                    menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+                    menuOpen = false;
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 图片懒加载效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '0';
+                        img.style.transition = 'opacity 0.5s ease';
+                        
+                        img.onload = () => {
+                            img.style.opacity = '1';
+                        };
+                        
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => {
+                observer.observe(img);
+            });
+        });
+    </script>
+</body>
+</html>
